@@ -1,21 +1,29 @@
 using System;
-/*using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;*/
-
 
 namespace qcs_product.API.Models
 {
     public class Pasien
     {
+        [Key] // Specifies that this property is the primary key
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Specifies that the Id is auto-generated
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Disease { get; set; }
-        public string Nik { get; set; }
-        public string Email { get; set; }
-        public string NoHandphone { get; set; }
 
+        [Required] // Specifies that the Name property is required
+        [MaxLength(50)] // Specifies the maximum length of the Name column
+        public string Name { get; set; }
+
+        [Column("DiseaseName")] // Specifies the column name in the database
+        public string Disease { get; set; }
+
+        [MaxLength(15)]
+        public string Nik { get; set; }
+
+        [EmailAddress] // Specifies that the Email property should be a valid email address
+        public string Email { get; set; }
+
+        [Phone] // Specifies that the NoHandphone property should be a valid phone number
+        public string NoHandphone { get; set; }
     }
 }
