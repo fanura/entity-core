@@ -5,21 +5,20 @@ using System.Threading.Tasks;
 using qcs_product.API.BindingModels;
 using qcs_product.API.BusinessProviders;
 using qcs_product.API.ViewModels;
-using qcs_product.API.Models.Pasien;
-using Microsoft.AspNetCore.Mvc;
 
-namespace qcs_product.API.Models.Pasien
+namespace qcs_product.API.Models
 {
     public static class Repository
     {
         private static List<Pasien> allPasien = new List<Pasien>();
+        
         public static IEnumerable<Pasien> AllPasien
         {
-            get { return AllPasien; }
+            get { return allPasien; }
         }
 
         //fungsi create
-        public static void Create (Pasien pasien)
+        public static void Create(Pasien pasien)
         {
             allPasien.Add(pasien);
         }

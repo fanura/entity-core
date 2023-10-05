@@ -16,40 +16,44 @@ namespace qcs_product.API.Controllers
     {
         public IActionResult Index()
         {
-        Pasien pasien = Repository.AllPasien.Where(e => e.Name == empname).FistOrDefault();
         return View(Repository.AllPasien);
         }
-    }
+        //Fungsi Create
+        [HttpPost]
+        public IActionResult Create(Pasien pasien)
+        {
+            Repository.Create(pasien);
+            return View(pasien);
+        }
 
-    //Fungsi Create
+
+        //Fungsi Update
+
+        [HttpPost]
+        public IActionResult Update(Pasien pasien, string empname)
+        {
+            Repository.AllPasien.Where(e => e.Name == empname).FirstOrDefault().Id = pasien.Id;
+            Repository.AllPasien.Where(e => e.Name == empname).FirstOrDefault().Disease = pasien.Disease;
+            Repository.AllPasien.Where(e => e.Name == empname).FirstOrDefault().Nik = pasien.Nik;
+            Repository.AllPasien.Where(e => e.Name == empname).FirstOrDefault().Email = pasien.Email;
+            Repository.AllPasien.Where(e => e.Name == empname).FirstOrDefault().NoHandphone = pasien.NoHandphone;
+
+            return RedirectToAction("Index");
+        }
+
+        //Fungsi Delete
     [HttpPost]
-    public IActionResult Create(Pasien pasien)
+    public IActionResult Delete(string empname)
     {
-        Repository.Create(pasien);
-        return View(pasien);
+        var pasienToDelete = Repository.AllPasien.FirstOrDefault(e => e.Name == empname);
+
+        if (pasienToDelete != null)
+        {
+            Repository.Delete(pasienToDelete);
+        }
+
+        return RedirectToAction("Index");
     }
 
-
-    //Fungsi Update
-
-    [HttpPost]
-    public IActionResult Update(Pasien pasien, string empname)
-    {
-         Repository.AllEmpoyees.Where(e => e.Name == empname).FirstOrDefault().Id = employee.Id;
-         Repository.AllEmpoyees.Where(e => e.Name == empname).FirstOrDefault().Disease = employee.Disease;
-         Repository.AllEmpoyees.Where(e => e.Name == empname).FirstOrDefault().Nik = employee.Nik;
-         Repository.AllEmpoyees.Where(e => e.Name == empname).FirstOrDefault().Email = employee.Email;
-         Repository.AllEmpoyees.Where(e => e.Name == empname).FirstOrDefault().NoHandphone = employee.NoHandphone;
-
-         return RedirectToAction("Index");
     }
-
-    //Fungsi Delete
-   [HttpPost]
-   public IActionResult Delete(string empname)
-   {
-    Pasien.pasien = Repository.AllPasien.Where(e => e.Name == empname).FirstOrDefault();
-    Repository.Delete(pasien);
-    return RedirectToAction("Index");
-   }
 }

@@ -14,7 +14,7 @@ namespace qcs_product.API.Models
         [MaxLength(50)] 
         public string Name { get; set; }
 
-        [Column("DiseaseName")] 
+        [Column("Disease")] 
         public string Disease { get; set; }
 
         [MaxLength(15)]
